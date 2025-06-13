@@ -44,7 +44,7 @@
         <button type="submit" class="submit-btn">Sign Up</button>
 
         <div class="signin-link">
-            Already have an account, <a href="login.jsp"> Login</a>.
+            Already have an account, <a href="signin.jsp"> Login</a>.
         </div>
     </form>
 </div>
