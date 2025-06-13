@@ -1,0 +1,109 @@
+/* Reset basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container styling */
+.login-container {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Header */
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+}
+
+/* Form group */
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+/* Eye icon for password toggle */
+.eye-icon {
+    position: absolute;
+    top: 36px;
+    right: 12px;
+    cursor: pointer;
+    color: #888;
+    font-size: 16px;
+    user-select: none;
+}
+
+.eye-icon:hover {
+    color: #333;
+}
+
+/* Submit button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0066cc;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0052a3;
+}
+
+/* Link section */
+.links {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.links a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}

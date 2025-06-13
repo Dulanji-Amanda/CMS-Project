@@ -1,85 +1,111 @@
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #f0f4ff, #dfe9ff);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/*!* Reset and base styles *!*/
+/** {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
-.signup-container {
-    background: #fff;
-    padding: 40px;
-    border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 420px;
-}
+/*body {*/
+/*    font-family: 'Poppins', sans-serif;*/
+/*    background-color: #f0f2f5;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*}*/
 
-.signup-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 24px;
-}
+/*!* Container *!*/
+/*.signup-container {*/
+/*    background-color: #ffffff;*/
+/*    padding: 40px 30px;*/
+/*    border-radius: 12px;*/
+/*    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);*/
+/*    width: 100%;*/
+/*    max-width: 450px;*/
+/*}*/
 
-.input-group {
-    margin-bottom: 20px;
-    position: relative;
-}
+/*!* Heading *!*/
+/*.signup-container h2 {*/
+/*    text-align: center;*/
+/*    margin-bottom: 24px;*/
+/*    color: #333;*/
+/*}*/
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    color: #555;
-    font-weight: 600;
-}
+/*!* Form group *!*/
+/*.form-group {*/
+/*    margin-bottom: 20px;*/
+/*    position: relative;*/
+/*}*/
 
-input, select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1.5px solid #b0c4ff;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-}
+/*.form-group label {*/
+/*    display: block;*/
+/*    margin-bottom: 8px;*/
+/*    font-weight: 500;*/
+/*    color: #555;*/
+/*}*/
 
-.password-toggle {
-    position: absolute;
-    right: 12px;
-    top: 36px;
-    cursor: pointer;
-}
+/*.form-group input,*/
+/*.form-group select {*/
+/*    width: 100%;*/
+/*    padding: 10px 40px 10px 12px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 8px;*/
+/*    font-size: 15px;*/
+/*    transition: border-color 0.3s;*/
+/*}*/
 
-.submit-btn {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(90deg, #6366f1, #818cf8);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
+/*.form-group input:focus,*/
+/*.form-group select:focus {*/
+/*    border-color: #0066cc;*/
+/*    outline: none;*/
+/*}*/
 
-.submit-btn:hover {
-    background: #4f46e5;
-}
+/*!* Eye icon for password *!*/
+/*.eye-icon {*/
+/*    position: absolute;*/
+/*    top: 36px;*/
+/*    right: 12px;*/
+/*    cursor: pointer;*/
+/*    color: #888;*/
+/*    font-size: 16px;*/
+/*    user-select: none;*/
+/*}*/
 
-.signin-link {
-    text-align: center;
-    margin-top: 18px;
-    font-size: 0.95rem;
-}
+/*.eye-icon:hover {*/
+/*    color: #333;*/
+/*}*/
 
-.signin-link a {
-    color: #4f46e5;
-    text-decoration: none;
-    font-weight: 600;
-}
+/*!* Button *!*/
+/*.btn {*/
+/*    width: 100%;*/
+/*    padding: 12px;*/
+/*    background-color: #0066cc;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 8px;*/
+/*    font-size: 16px;*/
+/*    font-weight: 500;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s;*/
+/*}*/
 
-.signin-link a:hover {
-    text-decoration: underline;
-}
+/*.btn:hover {*/
+/*    background-color: #0052a3;*/
+/*}*/
+
+/*!* Links *!*/
+/*.links {*/
+/*    text-align: center;*/
+/*    margin-top: 20px;*/
+/*    font-size: 14px;*/
+/*}*/
+
+/*.links a {*/
+/*    color: #0066cc;*/
+/*    text-decoration: none;*/
+/*    font-weight: 500;*/
+/*}*/
+
+/*.links a:hover {*/
+/*    text-decoration: underline;*/
+/*}*/
