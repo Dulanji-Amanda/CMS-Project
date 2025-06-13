@@ -35,11 +35,12 @@ public class UserModel {
 
     public boolean register(User user) {
         try (Connection con = DataSource.getConnection()) {
-            String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (username,email, password, role) VALUES (?,?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getRole());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getRole());
 
             int rows = ps.executeUpdate();
             System.out.println("Inserted rows: " + rows);
@@ -48,6 +49,6 @@ public class UserModel {
             System.err.println("DB Error: " + e.getMessage());
             e.printStackTrace();
             return false;
-    }
+        }
     }
 }
