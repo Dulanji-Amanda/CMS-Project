@@ -11,20 +11,6 @@ function togglePassword() {
         icon.classList.add("fa-eye");
     }
 }
-//+.
-
-// // Add focus animations
-// const inputs = document.querySelectorAll('input');
-// inputs.forEach(input => {
-//     input.addEventListener('focus', () => {
-//         input.parentElement.querySelector('label').style.color = '#667eea';
-//     });
-//
-//     input.addEventListener('blur', () => {
-//         input.parentElement.querySelector('label').style.color = '#555';
-//     });
-// });
-
 document.addEventListener('DOMContentLoaded', function() {
     // Custom select functionality
     const selectWrapper = document.querySelector('.custom-select-wrapper');

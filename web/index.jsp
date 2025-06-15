@@ -19,10 +19,12 @@
             <input type="text" id="username" name="username" required />
         </div>
 
-        <div class="form-group">
+        <div class="form-group password-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />
-            <span class="eye-icon" onclick="togglePassword()"><i class="fas fa-eye eye-icon" id="togglePassword"></i></span>
+            <span class="eye-icon" onclick="togglePassword()">
+        <i class="fas fa-eye" id="togglePassword"></i>
+        </span>
         </div>
 
         <button type="submit" class="btn">Sign In</button>

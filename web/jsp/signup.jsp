@@ -73,7 +73,7 @@
         /* Eye icon for password */
         .eye-icon {
             position: absolute;
-            top: 36px;
+            top: 60%;
             right: 12px;
             cursor: pointer;
             color: #888;
@@ -89,7 +89,7 @@
         .btn {
             width: 100%;
             padding: 12px;
-            background-color: #0066cc;
+            background-color: #000000;
             color: #fff;
             border: none;
             border-radius: 8px;

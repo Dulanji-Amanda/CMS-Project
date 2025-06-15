@@ -28,7 +28,7 @@ public class SignUpServlet extends HttpServlet {
         boolean success = new UserModel().register(user);
         if (success) {
 //            resp.sendRedirect(req.getContextPath() + "index.jsp");
-            resp.sendRedirect(req.getContextPath() + "/index.jsp?message=Registration successful! Please login.");
+            resp.sendRedirect(req.getContextPath() + "/index.jsp?message=Registration successful! Please login.");
 //            resp.sendRedirect("/signin.jsp?message=Registration successful! Please log in.");
         } else {
             resp.sendRedirect("signup.jsp?error=Registration failed. Please try again.");
