@@ -11,97 +11,72 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/admin/*")
 public class AdminServlet extends HttpServlet {
 
+    private final ComplaintsModel complaintsModel = new ComplaintsModel();
+
+    // In AdminServlet.java, add a new path handler for editing
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = request.getPathInfo();
 
-        // Validate admin access
-        if (user == null || !"ADMIN".equalsIgnoreCase(user.getRole())) {
-            resp.sendRedirect(req.getContextPath() + "/index.jsp");
-            return;
-        }
+        try {
+            if (path != null && path.equals("/viewComplaint")) {
+                // Load complaint by id to display details
+                int id = Integer.parseInt(request.getParameter("id"));
+                Complaints complaint = complaintsModel.getComplaintById(id);
+                request.setAttribute("viewComplaint", complaint); // Use a different attribute name
 
-        String pathInfo = req.getPathInfo();
-        String path = pathInfo == null ? "" : pathInfo;
+                // Also load all complaints for table display
+                List<Complaints> complaintsList = complaintsModel.getAllComplaints();
+                request.setAttribute("complaints", complaintsList);
 
-        // Handle get complaint details for modals
-        if ("/getComplaint".equals(path)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            ComplaintsModel complaintsModel = new ComplaintsModel();
-            Complaints complaint = complaintsModel.getComplaintById(id);
+                request.getRequestDispatcher("/jsp/AdminDashboard.jsp").forward(request, response);
+            } else if (path != null && path.equals("/editStatus")) {
+                // Load complaint by id to edit status
+                int id = Integer.parseInt(request.getParameter("id"));
+                Complaints complaint = complaintsModel.getComplaintById(id);
+                request.setAttribute("complaint", complaint); // Use this attribute name for edit modal
 
-            if (complaint != null) {
-                resp.setContentType("application/json");
-                resp.getWriter().write(complaint.toJson());
-                return;
+                // Also load all complaints for table display
+                List<Complaints> complaintsList = complaintsModel.getAllComplaints();
+                request.setAttribute("complaints", complaintsList);
+
+                request.getRequestDispatcher("/jsp/AdminDashboard.jsp").forward(request, response);
+            } else {
+                // Default: load all complaints
+                List<Complaints> complaintsList = complaintsModel.getAllComplaints();
+                request.setAttribute("complaints", complaintsList);
+                request.getRequestDispatcher("/jsp/AdminDashboard.jsp").forward(request, response);
             }
-        } else {
-            // Debug output
-            System.out.println("AdminServlet: Processing GET request");
-
-            // Get all complaints
-            ComplaintsModel complaintsModel = new ComplaintsModel();
-            List<Complaints> complaints = complaintsModel.getAllComplaints();
-
-            // Debug output
-            System.out.println("AdminServlet: Retrieved " + complaints.size() + " complaints");
-
-            // Set the complaints as request attribute
-            req.setAttribute("complaints", complaints);
-
-            // Forward to the dashboard JSP
-            req.getRequestDispatcher("/jsp/AdminDashboard.jsp").forward(req, resp);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
 
-        // Validate admin access
-        if (user == null || !"ADMIN".equalsIgnoreCase(user.getRole())) {
-            resp.sendRedirect(req.getContextPath() + "/index.jsp");
-            return;
+        try {
+            if ("updateStatus".equals(action)) {
+                int complaintId = Integer.parseInt(request.getParameter("complaintId"));
+                String status = request.getParameter("status");
+
+                complaintsModel.updateComplaintStatus(complaintId, status);
+            } else if ("delete".equals(action)) {
+                int complaintId = Integer.parseInt(request.getParameter("complaintId"));
+                complaintsModel.deleteComplaintById(complaintId);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
-        String pathInfo = req.getPathInfo();
-        String path = pathInfo == null ? "" : pathInfo;
-
-        ComplaintsModel complaintsModel = new ComplaintsModel();
-
-        if ("/updateComplaint".equals(path)) {
-            // Handle complaint status update
-            int complaintId = Integer.parseInt(req.getParameter("complaintId"));
-            String status = req.getParameter("status");
-
-            // Debug the parameters
-            System.out.println("Updating complaint: ID=" + complaintId + ", Status=" + status);
-
-            boolean success = complaintsModel.updateComplaintStatus(complaintId, status, "");
-
-            if (success) {
-                resp.sendRedirect(req.getContextPath() + "/admin");
-            } else {
-                resp.sendRedirect(req.getContextPath() + "/admin?error=updateFailed");
-            }
-        } else if ("/deleteComplaint".equals(path)) {
-            // Handle complaint deletion
-            int complaintId = Integer.parseInt(req.getParameter("complaintId"));  // Changed from deleteComplaintId
-
-            boolean success = complaintsModel.deleteComplaint(complaintId);
-
-            if (success) {
-                resp.sendRedirect(req.getContextPath() + "/admin");
-            } else {
-                resp.sendRedirect(req.getContextPath() + "/admin?error=deleteFailed");
-            }
-        }
+        // Redirect back to dashboard to reflect changes
+        response.sendRedirect(request.getContextPath() + "/admin/dashboard");
     }
 }

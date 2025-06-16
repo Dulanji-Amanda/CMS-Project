@@ -19,6 +19,19 @@ public class SignUpServlet extends HttpServlet {
         String password = req.getParameter("password");
         String role = req.getParameter("role");
 
+        // Check for null or empty values
+        if (username == null || username.trim().isEmpty() ||
+                email == null || email.trim().isEmpty() ||
+                password == null || password.trim().isEmpty()) {
+            resp.sendRedirect(req.getContextPath() + "/index.jsp?error=Missing+required+fields");
+            return;
+        }
+
+        // Set default role if none provided
+        if (role == null || role.trim().isEmpty()) {
+            role = "employee"; // Default role
+        }
+
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
@@ -27,11 +40,9 @@ public class SignUpServlet extends HttpServlet {
 
         boolean success = new UserModel().register(user);
         if (success) {
-//            resp.sendRedirect(req.getContextPath() + "index.jsp");
-            resp.sendRedirect(req.getContextPath() + "/index.jsp?message=Registration successful! Please login.");
-//            resp.sendRedirect("/signin.jsp?message=Registration successful! Please log in.");
+            resp.sendRedirect(req.getContextPath() + "/index.jsp?message=Registration+successful.+Please+log+in.");
         } else {
-            resp.sendRedirect("signup.jsp?error=Registration failed. Please try again.");
+            resp.sendRedirect(req.getContextPath() + "/jsp/signup.jsp?error=Registration+failed.+User+may+already+exist");
         }
     }
 }

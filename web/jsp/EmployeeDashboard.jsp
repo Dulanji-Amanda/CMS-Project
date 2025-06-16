@@ -1,5 +1,3 @@
-<%@ page import="lk.ijse.gdse.cms.dto.Complaints" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,6 +12,14 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark mb-4">
     <div class="container">
+        <%
+            String msg = request.getParameter("msg");
+            if ("success".equals(msg)) {
+        %>
+        <div class="alert alert-success">Complaint submitted successfully.</div>
+        <%
+            }
+        %>
         <a class="navbar-brand" href="#">Complaint Management System</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -55,10 +61,10 @@
                 </thead>
                 <tbody>
                 <%
-                    java.util.List<Complaints> userComplaints =
-                            (java.util.List<Complaints>) request.getAttribute("userComplaints");
+                    java.util.List<lk.ijse.gdse.cms.dto.Complaints> userComplaints =
+                            (java.util.List<lk.ijse.gdse.cms.dto.Complaints>) request.getAttribute("userComplaints");
                     if (userComplaints != null && !userComplaints.isEmpty()) {
-                        for (Complaints complaint : userComplaints) {
+                        for (lk.ijse.gdse.cms.dto.Complaints complaint : userComplaints) {
                 %>
                 <tr>
                     <td><%= complaint.getId() %></td>
@@ -73,21 +79,24 @@
             </span>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-primary view-btn" data-id="<%= complaint.getId() %>"
-                                data-bs-toggle="modal" data-bs-target="#viewComplaintModal">
-                            <i class="bi bi-eye"></i>
-                        </button>
+
                         <% if (!complaint.getStatus().equals("Resolved") && !complaint.getStatus().equals("Rejected")) { %>
-                        <button class="btn btn-sm btn-warning edit-btn" data-id="<%= complaint.getId() %>"
-                                data-bs-toggle="modal" data-bs-target="#editComplaintModal">
+                        <!-- Change this to redirect to the edit page instead of using a modal -->
+                        <a href="${pageContext.request.contextPath}/employee/editComplaintForm?complaintId=<%= complaint.getId() %>"
+                           class="btn btn-sm btn-warning" title="Edit">
                             <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger delete-btn" data-id="<%= complaint.getId() %>"
-                                data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
-                            <i class="bi bi-trash"></i>
-                        </button>
+                        </a>
+
+                        <form action="${pageContext.request.contextPath}/employee/deleteComplaint" method="post" style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to delete this complaint?');">
+                            <input type="hidden" name="complaintId" value="<%= complaint.getId() %>">
+                            <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
                         <% } %>
                     </td>
+
                 </tr>
                 <%
                     }
@@ -110,7 +119,19 @@
                 <h5 class="modal-title">Submit New Complaint</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="newComplaintForm" action="${pageContext.request.contextPath}/employee/submitComplaint" method="post">
+            <c:if test="${not empty error}">
+                <div style="color: red; font-weight: bold; margin-bottom: 10px;">
+                        ${error}
+                </div>
+            </c:if>
+
+            <c:if test="${not empty sessionScope.msg}">
+                <div style="color: green; font-weight: bold; margin-bottom: 10px;">
+                        ${sessionScope.msg}
+                </div>
+                <c:remove var="msg" scope="session"/>
+            </c:if>
+            <form action="${pageContext.request.contextPath}/employee/submitComplaint" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="subject" class="form-label">Subject</label>
@@ -125,7 +146,11 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Submit Complaint</button>
                 </div>
+                <c:if test="${not empty error}">
+                    <div style="color:red;">${error}</div>
+                </c:if>
             </form>
+
         </div>
     </div>
 </div>
@@ -211,7 +236,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/employeeDashboard.js"></script>
 
 </body>
 </html>
