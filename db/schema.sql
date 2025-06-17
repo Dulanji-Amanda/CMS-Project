@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS complaint_db;
-USE complaint_db;
+CREATE DATABASE IF NOT EXISTS cms_db;
+USE cms_db;
 
 CREATE TABLE users (
                        id INT AUTO_INCREMENT PRIMARY KEY,
@@ -12,10 +12,10 @@ CREATE TABLE users (
 CREATE TABLE complaints (
                             id INT AUTO_INCREMENT PRIMARY KEY,
                             user_id INT,
-                            title VARCHAR(255),
+                            subject VARCHAR(255),
                             description TEXT,
                             status ENUM('Pending', 'In Progress', 'Resolved') DEFAULT 'Pending',
                             remarks TEXT,
-                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            date_submitted TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                             FOREIGN KEY (user_id) REFERENCES users(id)
 );
