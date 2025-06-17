@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +31,7 @@
     <!-- Dashboard Header -->
     <div class="row mb-4">
         <div class="col-md-8">
-            <h3>Manage all user complaints</h3>
+            <h3>Manage all employee complaints</h3>
         </div>
     </div>
 

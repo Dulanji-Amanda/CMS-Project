@@ -33,17 +33,20 @@ public class ComplaintsModel {
     }
 
     // Update a complaint
-    public void updateComplaint(Complaints complaint) {
-        String sql = "UPDATE complaints SET subject=?, description=?, status=? WHERE id=?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, complaint.getSubject());
-            ps.setString(2, complaint.getDescription());
-            ps.setString(3, complaint.getStatus());
-            ps.setInt(4, complaint.getId());
-            ps.executeUpdate();
+    public boolean updateComplaint(Complaints complaint) throws SQLException {
+        String sql = "UPDATE complaints SET subject = ?, description = ? WHERE id = ?";
+
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, complaint.getSubject());
+            stmt.setString(2, complaint.getDescription());
+            stmt.setInt(3, complaint.getId());
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 
@@ -61,7 +64,7 @@ public class ComplaintsModel {
         }
     }
 
-
+    // Use this method for deleting by complaint ID
     public boolean deleteComplaint(int id) {
         String sql = "DELETE FROM complaints WHERE id = ?";
         try (Connection conn = DataSource.getConnection();
