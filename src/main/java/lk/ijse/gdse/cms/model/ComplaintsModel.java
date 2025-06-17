@@ -11,7 +11,6 @@ import static lk.ijse.gdse.cms.util.DataSource.getConnection;
 
 public class ComplaintsModel {
 
-    // Add a complaint
     public boolean addComplaint(Complaints complaint) {
         String sql = "INSERT INTO complaints (user_id, subject, description, status, date_submitted) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DataSource.getConnection();
@@ -95,6 +94,7 @@ public class ComplaintsModel {
                 c.setSubject(rs.getString("subject"));
                 c.setDescription(rs.getString("description"));
                 c.setStatus(rs.getString("status"));
+                c.setRemarks(rs.getString("remarks"));
                 c.setDate_submitted(rs.getTimestamp("date_submitted"));
 
                 return c;
@@ -122,6 +122,7 @@ public class ComplaintsModel {
                 c.setSubject(rs.getString("subject"));
                 c.setDescription(rs.getString("description"));
                 c.setStatus(rs.getString("status"));
+                c.setRemarks(rs.getString("remarks"));
                 c.setDate_submitted(rs.getTimestamp("date_submitted"));
 
                 list.add(c);
@@ -150,7 +151,7 @@ public class ComplaintsModel {
                 complaint.setUserId(rs.getInt("user_id"));
                 complaint.setDate_submitted(rs.getDate("date_submitted"));
                 complaint.setStatus(rs.getString("status"));
-//                complaint.setRemarks(rs.getString("remarks"));
+                complaint.setRemarks(rs.getString("remarks"));
                 complaints.add(complaint);
             }
         }
@@ -175,6 +176,18 @@ public class ComplaintsModel {
         }
     }
 
+    public boolean updateComplaintStatusAndRemarks(int id, String status, String remarks) throws SQLException {
+        String sql = "UPDATE complaints SET status = ?, remarks = ? WHERE id = ?";
 
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, status);
+            stmt.setString(2, remarks);
+            stmt.setInt(3, id);
+
+            return stmt.executeUpdate() > 0;
+        }
+    }
 }
 
