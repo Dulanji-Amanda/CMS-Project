@@ -18,4 +18,5 @@ CREATE TABLE complaints (
                             remarks TEXT,
                             date_submitted TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                             FOREIGN KEY (user_id) REFERENCES users(id)
+
 );
