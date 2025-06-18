@@ -38,8 +38,8 @@ This project is a prototype of a **Web-Based Complaint Management System (CMS)**
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-github-username>/<your-repo-name>.git
-cd <your-repo-name>
+git clone https://github.com/<Dulanji-Amanda>/<CMS-Project>.git
+cd <CMS-Projec>
 ```
 
 ### 2. Database Setup
@@ -48,13 +48,13 @@ cd <your-repo-name>
 - Import the provided database schema:
 
 ```bash
-mysql -u <your-mysql-username> -p < database/db_schema.sql
+mysql -u <username> -p < database/db_schema.sql
 ```
 
 - Update your database connection settings in `/src/main/resources/db.properties` (or as directed in the code):
 
 ```
-db.url=jdbc:mysql://localhost:3306/complaintdb
+db.url=jdbc:mysql://localhost:3306/cms_db
 db.username=your_mysql_username
 db.password=your_mysql_password
 ```

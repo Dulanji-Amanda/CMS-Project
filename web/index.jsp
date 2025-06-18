@@ -1,13 +1,11 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Sign In</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/signin.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -19,12 +17,10 @@
             <input type="text" id="username" name="username" required />
         </div>
 
-        <div class="form-group password-group">
+        <div class="form-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required />
-            <span class="eye-icon" onclick="togglePassword()">
-        <i class="fas fa-eye" id="togglePassword"></i>
-        </span>
+            <span class="eye-icon" onclick="togglePassword()"><i class="fas fa-eye eye-icon" id="togglePassword"></i></span>
         </div>
 
         <button type="submit" class="btn">Sign In</button>
